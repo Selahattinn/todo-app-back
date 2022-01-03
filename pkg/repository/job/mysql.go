@@ -41,7 +41,7 @@ func NewMySQLRepository(db *sql.DB) (*MySQLRepository, error) {
 	}, nil
 }
 
-func (r *MySQLRepository) GetJobs(id int64, item_type string) ([]model.Job, error) {
+func (r *MySQLRepository) GetJobs() ([]model.Job, error) {
 	q := "SELECT id, body, completed FROM " + tableName
 
 	logrus.Debug("QUERY: ", q)
