@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Selahattinn/todo-app-back/pkg/api/response"
+	"github.com/Selahattinn/todo-app-back/pkg/service"
 	"github.com/gorilla/mux"
 )
 
@@ -15,9 +16,9 @@ type Config struct {
 
 // API represents the structure of the API
 type API struct {
-	Router *mux.Router
-
-	config *Config
+	Router  *mux.Router
+	config  *Config
+	service service.Service
 	//db     db.DB
 }
 
@@ -34,6 +35,9 @@ func New(config *Config, router *mux.Router) (*API, error) {
 
 	// Endpoint for healtcheck
 	api.Router.HandleFunc("/api/v1/health", api.corsMiddleware(api.logMiddleware(api.healthHandler))).Methods("GET")
+
+	// Endpoints for jobs
+	api.Router.HandleFunc("/api/v1/jobs", api.corsMiddleware(api.logMiddleware(api.GetJobs))).Methods("GET")
 
 	return api, nil
 }
