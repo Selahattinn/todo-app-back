@@ -19,15 +19,15 @@ type API struct {
 	Router  *mux.Router
 	config  *Config
 	service service.Service
-	//db     db.DB
 }
 
 // New returns the api settings
-func New(config *Config, router *mux.Router) (*API, error) {
+func New(config *Config, router *mux.Router, svc service.Service) (*API, error) {
 	api := &API{
 		config: config,
 		//db:     db,
-		Router: router,
+		Router:  router,
+		service: svc,
 	}
 
 	// Endpoint for browser preflight requests

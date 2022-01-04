@@ -13,3 +13,5 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+todo-app-back.log
+bin/todo-app-back
