@@ -7,6 +7,7 @@ type Reader interface {
 }
 
 type Writer interface {
+	StoreJob(job model.Job) (int64, error)
 }
 
 //Repository repository interface

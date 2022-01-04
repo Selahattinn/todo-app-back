@@ -63,3 +63,36 @@ func TestNewMySQLRepository(t *testing.T) {
 		})
 	}
 }
+
+func TestMySQLRepository_StoreJob(t *testing.T) {
+	type fields struct {
+		db *sql.DB
+	}
+	type args struct {
+		job model.Job
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    int64
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			r := &MySQLRepository{
+				db: tt.fields.db,
+			}
+			got, err := r.StoreJob(tt.args.job)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("MySQLRepository.StoreJob() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("MySQLRepository.StoreJob() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

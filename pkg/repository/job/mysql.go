@@ -61,3 +61,26 @@ func (r *MySQLRepository) GetJobs() ([]model.Job, error) {
 
 	return jobs, nil
 }
+
+func (r *MySQLRepository) StoreJob(job model.Job) (int64, error) {
+	stmt, err := r.db.Prepare(`INSERT INTO ` + tableName + `(
+		body, completed)
+		VALUES(
+			?,?)`)
+	if err != nil {
+		return -1, err
+	}
+
+	defer stmt.Close()
+
+	res, err := stmt.Exec(
+		job.Body, job.Completed)
+	if err != nil {
+		return -1, err
+	}
+	id, err := res.LastInsertId()
+	if err != nil {
+		return -1, err
+	}
+	return id, nil
+}

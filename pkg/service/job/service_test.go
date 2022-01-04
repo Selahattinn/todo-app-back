@@ -62,3 +62,36 @@ func TestService_GetJobs(t *testing.T) {
 		})
 	}
 }
+
+func TestService_StoreJob(t *testing.T) {
+	type fields struct {
+		repository repository.Repository
+	}
+	type args struct {
+		job model.Job
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    int64
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := &Service{
+				repository: tt.fields.repository,
+			}
+			got, err := s.StoreJob(tt.args.job)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Service.StoreJob() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Service.StoreJob() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -21,3 +21,11 @@ func (s *Service) GetJobs() ([]model.Job, error) {
 	}
 	return jobs, nil
 }
+
+func (s *Service) StoreJob(job model.Job) (int64, error) {
+	id, err := s.repository.GetJobRepository().StoreJob(job)
+	if err != nil {
+		return id, nil
+	}
+	return id, nil
+}
