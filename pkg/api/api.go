@@ -38,6 +38,7 @@ func New(config *Config, router *mux.Router, svc service.Service) (*API, error) 
 
 	// Endpoints for jobs
 	api.Router.HandleFunc("/api/v1/jobs", api.corsMiddleware(api.logMiddleware(api.GetJobs))).Methods("GET")
+	api.Router.HandleFunc("/api/v1/jobs", api.corsMiddleware(api.logMiddleware(api.StoreJobs))).Methods("POST")
 
 	return api, nil
 }

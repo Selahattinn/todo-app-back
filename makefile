@@ -1,7 +1,6 @@
 WHAT := todo-app-back
 
 PWD ?= $(shell pwd)
-LS ?= $(shell ls)
 
 VERSION   ?= $(shell git describe --tags)
 REVISION  ?= $(shell git rev-parse HEAD)
