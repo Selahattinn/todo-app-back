@@ -14,7 +14,7 @@ func NewService(repo repository.Repository) (*Service, error) {
 		repository: repo,
 	}, nil
 }
-func (s *Service) GetUJobs() ([]model.Job, error) {
+func (s *Service) GetJobs() ([]model.Job, error) {
 	jobs, err := s.repository.GetJobRepository().GetJobs()
 	if err != nil {
 		return nil, nil

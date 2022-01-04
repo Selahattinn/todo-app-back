@@ -5,7 +5,7 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  updateOS:
+  build:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -17,7 +17,10 @@ jobs:
       - run:
           name: "update os"
           command: "sudo apt update && sudo apt upgrade -y"
-  tests:
+      - run:
+          name: "build"
+          command: "make"
+  test:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -29,7 +32,7 @@ jobs:
       - run:
           name: "do tests"
           command: "go test ./pkg/*"
-  buildAndRun:
+  dockerize:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -49,6 +52,6 @@ jobs:
 workflows:
   main-workflow:
     jobs:
-      - updateOS
-      - tests
-      - buildAndRun
+      - build
+      - test
+      - dockerize

@@ -9,7 +9,7 @@ import (
 
 //endpoint for get userInformation
 func (a *API) GetJobs(w http.ResponseWriter, r *http.Request) {
-	jobs, err := a.service.GetJobService().GetUJobs()
+	jobs, err := a.service.GetJobService().GetJobs()
 	if err != nil {
 		response.Errorf(w, r, fmt.Errorf("error getting storeUserInformation info: %v", err), http.StatusBadRequest, err.Error())
 		return
