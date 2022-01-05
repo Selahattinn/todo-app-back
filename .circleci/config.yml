@@ -58,9 +58,6 @@ jobs:
               done
               echo Failed waiting for MySQL && exit 1
       - run:
-          name: Install act-provider-verifier
-          command: gem install pact-provider-verifier
-      - run:
           name: "do tests"
           command: "make test"
 # Invoke jobs via workflows
