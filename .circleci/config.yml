@@ -50,7 +50,9 @@ jobs:
             sudo apt-get install default-mysql-client
       - run:
           name: "mysql up"
-          command: "sudo /etc/init.d/mysql start"      
+          command: |
+              sudo systemctl stop mysqld
+              sudo systemctl start mysqld      
       - run:
           name: "do tests"
           command: "make test"
