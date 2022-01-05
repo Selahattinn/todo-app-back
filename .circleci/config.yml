@@ -28,9 +28,9 @@ jobs:
       - image: circleci/mysql:8.0.4
         environment:
           MYSQL_ROOT_PASSWORD: rootpw
-          MYSQL_DATABASE: todos
-          MYSQL_USER: root
-          MYSQL_PASSWORD: rootpw
+          MYSQL_DATABASE: test_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: passw0rd
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
