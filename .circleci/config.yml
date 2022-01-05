@@ -39,4 +39,3 @@ workflows:
     jobs:
       - build
       - test
-      - dockerize
