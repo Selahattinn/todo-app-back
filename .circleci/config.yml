@@ -59,7 +59,7 @@ jobs:
       - run:
           name: Install pact-found-binary
           command: |
-            sudo cd /opt
+            cd /opt
             sudo curl -fsSL https://raw.githubusercontent.com/pact-foundation/pact-ruby-standalone/master/install.sh | bash
             sudo export PATH=$PATH:/opt/pact/bin
             sudo go get github.com/pact-foundation/pact-go@v1
