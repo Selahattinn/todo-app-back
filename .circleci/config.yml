@@ -30,6 +30,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "install mysql"
+          command: "sudo apt install mysql-server -y"
+      - run:
           name: "do tests"
           command: "make test"
 # Invoke jobs via workflows
