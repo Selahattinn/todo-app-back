@@ -57,6 +57,13 @@ jobs:
               done
               echo Failed waiting for MySQL && exit 1
       - run:
+          name: Install pact-found-binary
+          command: |
+            cd /opt
+            curl -fsSL https://raw.githubusercontent.com/pact-foundation/pact-ruby-standalone/master/install.sh | bash
+            export PATH=$PATH:/opt/pact/bin
+            go get github.com/pact-foundation/pact-go@v1
+      - run:
           name: "do tests"
           command: "make test"
 # Invoke jobs via workflows
