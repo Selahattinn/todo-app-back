@@ -78,7 +78,7 @@ pact-test:
 	go test pkg/service/job/service_test.go
 
 mysql-test-build:
-	mysql -u root -pautoOrder -e 'create database todos;'
-	mysql -u root -pautoOrder -e 'drop database todos;'
+	mysql -u root -prootpw -e 'create database todos;'
+	mysql -u root -prootpw -e 'drop database todos;'
 	./bin/todo-app-back
-	mysql -u root -pautoOrder -e 'use todos;insert into jobs (body) values("Test");insert into jobs (body) values("Test");select * from jobs'
+	mysql -u root -prootpw -e 'use todos;insert into jobs (body) values("Test");insert into jobs (body) values("Test");select * from jobs'
