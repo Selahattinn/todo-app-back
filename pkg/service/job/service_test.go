@@ -25,7 +25,6 @@ func TestService_GetJobs(t *testing.T) {
 		BrokerToken:                "MGpB-0-JCU5yM8i3eUdA0Q",
 		PublishVerificationResults: true,
 		ProviderVersion:            "1.0.0",
-		StateHandlers:              stateHandlers,
 		//RequestFilter:              fixBearerToken,
 	})
 

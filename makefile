@@ -70,4 +70,15 @@ release: build-darwin-amd64 build-linux-amd64 build-windows-amd64
 static:
 	go build -o esc esc.go
 	./esc -o pkg/static/static.go -pkg static
-	
+test:
+	make build
+	make mysql-test-build
+	make pact-test
+pact-test:
+	go test pkg/service/job/service_test.go
+
+mysql-test-build:
+	mysql -u root -pautoOrder -e 'create database todos;'
+	mysql -u root -pautoOrder -e 'drop database todos;'
+	./bin/todo-app-back
+	mysql -u root -pautoOrder -e 'use todos;insert into jobs (body) values("Test");insert into jobs (body) values("Test");select * from jobs'

@@ -31,10 +31,13 @@ func (a *API) StoreJobs(w http.ResponseWriter, r *http.Request) {
 		response.Errorf(w, r, fmt.Errorf("error getting store job info: %v", err), http.StatusBadRequest, err.Error())
 		return
 	}
-	jobs, err := a.service.GetJobService().StoreJob(payload)
+	id, err := a.service.GetJobService().StoreJob(payload)
 	if err != nil {
+		fmt.Println(err)
 		response.Errorf(w, r, fmt.Errorf("error getting storeUserInformation info: %v", err), http.StatusBadRequest, err.Error())
 		return
 	}
-	response.Write(w, r, jobs)
+	var job model.Job
+	job.ID = id
+	response.Write(w, r, job)
 }

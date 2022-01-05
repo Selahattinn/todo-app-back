@@ -21,7 +21,7 @@ const (
 	initTableTemplate = `
 	CREATE TABLE IF NOT EXISTS %s (
 		id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		body varchar(256) NOT NULL DEFAULT '',
+		body TEXT NOT NULL,
 		UNIQUE KEY id (id)
 	  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;	
 `
