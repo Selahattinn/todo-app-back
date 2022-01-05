@@ -51,8 +51,8 @@ jobs:
       - run:
           name: "mysql up"
           command: |
-              sudo systemctl stop mysqld
-              sudo systemctl start mysqld      
+              sudo service mysqld stop
+              sudo service mysqld start   
       - run:
           name: "do tests"
           command: "make test"
