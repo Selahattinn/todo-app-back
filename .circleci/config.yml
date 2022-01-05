@@ -25,14 +25,27 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       - image: circleci/golang:1.16
+      - image: circleci/mysql:5.7.21
+        environment:
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - run: 
+          name: Wait for mysql up
+          command: |
+          for i in `seq 1 10`;
+            do
+              nc -z 127.0.0.1 3306 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for MySQL && exit 1
       - run:
           name: Install MySQL CLI
           command: |
-            sudo apt-get install mysql-server -y 
             sudo apt-get install default-mysql-client
       - run:
           name: "do tests"
