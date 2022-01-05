@@ -49,11 +49,6 @@ jobs:
           command: |
             sudo apt-get install default-mysql-client
       - run:
-          name: "mysql up"
-          command: |
-              sudo service mysqld stop
-              sudo service mysqld start   
-      - run:
           name: "do tests"
           command: "make test"
 # Invoke jobs via workflows
