@@ -25,13 +25,17 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       - image: circleci/golang:1.16
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: ''
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
       - run:
-          name: "install mysql"
-          command: "sudo apt install mysql-server -y"
+          name: Wait for database service on the tcp protocol
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: "do tests"
           command: "make test"
