@@ -6,9 +6,10 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gorilla/mux v1.8.0
 	github.com/mjibson/esc v0.2.0
+	github.com/pact-foundation/pact-go v1.6.7
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sirupsen/logrus v1.8.1
-	github.com/stretchr/testify v1.7.0 // indirect
 	golang.org/x/tools v0.1.8 // indirect
+	gopkg.in/pact-foundation/pact-go.v1 v1.1.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 )

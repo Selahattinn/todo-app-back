@@ -22,7 +22,6 @@ const (
 	CREATE TABLE IF NOT EXISTS %s (
 		id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		body varchar(256) NOT NULL DEFAULT '',
-		completed bigint(20) NOT NULL DEFAULT 0,
 		UNIQUE KEY id (id)
 	  ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;	
 `
@@ -42,7 +41,7 @@ func NewMySQLRepository(db *sql.DB) (*MySQLRepository, error) {
 }
 
 func (r *MySQLRepository) GetJobs() ([]model.Job, error) {
-	q := "SELECT id, body, completed FROM " + tableName
+	q := "SELECT id, body FROM " + tableName
 
 	logrus.Debug("QUERY: ", q)
 	res, err := r.db.Query(q)
@@ -52,7 +51,7 @@ func (r *MySQLRepository) GetJobs() ([]model.Job, error) {
 	var jobs []model.Job
 	for res.Next() {
 		var job model.Job
-		if err := res.Scan(&job.ID, &job.Body, &job.Completed); err != nil {
+		if err := res.Scan(&job.ID, &job.Body); err != nil {
 			return nil, err
 		}
 		jobs = append(jobs, job)
@@ -64,9 +63,9 @@ func (r *MySQLRepository) GetJobs() ([]model.Job, error) {
 
 func (r *MySQLRepository) StoreJob(job model.Job) (int64, error) {
 	stmt, err := r.db.Prepare(`INSERT INTO ` + tableName + `(
-		body, completed)
+		body)
 		VALUES(
-			?,?)`)
+			?)`)
 	if err != nil {
 		return -1, err
 	}
@@ -74,7 +73,7 @@ func (r *MySQLRepository) StoreJob(job model.Job) (int64, error) {
 	defer stmt.Close()
 
 	res, err := stmt.Exec(
-		job.Body, job.Completed)
+		job.Body)
 	if err != nil {
 		return -1, err
 	}

@@ -1,97 +1,42 @@
 package job
 
 import (
-	"reflect"
+	"fmt"
 	"testing"
 
-	"github.com/Selahattinn/todo-app-back/pkg/model"
-	"github.com/Selahattinn/todo-app-back/pkg/repository"
+	"github.com/pact-foundation/pact-go/dsl"
+	"github.com/pact-foundation/pact-go/types"
 )
 
-func TestNewService(t *testing.T) {
-	type args struct {
-		repo repository.Repository
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    *Service
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewService(tt.args.repo)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("NewService() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewService() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestService_GetJobs(t *testing.T) {
-	type fields struct {
-		repository repository.Repository
+	pact := dsl.Pact{
+		Provider:                 "go-provider",
+		LogDir:                   "../../logs",
+		PactDir:                  "../../pacts",
+		DisableToolValidityCheck: true,
+		LogLevel:                 "INFO",
 	}
-	tests := []struct {
-		name    string
-		fields  fields
-		want    []model.Job
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			s := &Service{
-				repository: tt.fields.repository,
-			}
-			got, err := s.GetJobs()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Service.GetUJobs() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Service.GetUJobs() = %v, want %v", got, tt.want)
-			}
-		})
+
+	_, err := pact.VerifyProvider(t, types.VerifyRequest{
+		ProviderBaseURL:            fmt.Sprintf("http://localhost:%d", 8080),
+		Tags:                       []string{"master"},
+		FailIfNoPactsFound:         false,
+		BrokerURL:                  "https://selahattinceylan.pactflow.io",
+		BrokerToken:                "MGpB-0-JCU5yM8i3eUdA0Q",
+		PublishVerificationResults: true,
+		ProviderVersion:            "1.0.0",
+		StateHandlers:              stateHandlers,
+		//RequestFilter:              fixBearerToken,
+	})
+
+	if err != nil {
+		t.Fatal(err)
 	}
 }
 
-func TestService_StoreJob(t *testing.T) {
-	type fields struct {
-		repository repository.Repository
-	}
-	type args struct {
-		job model.Job
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		want    int64
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			s := &Service{
-				repository: tt.fields.repository,
-			}
-			got, err := s.StoreJob(tt.args.job)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Service.StoreJob() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if got != tt.want {
-				t.Errorf("Service.StoreJob() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+var stateHandlers = types.StateHandlers{
+	"a request to get jobs": func() error {
+
+		return nil
+	},
 }
