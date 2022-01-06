@@ -78,7 +78,7 @@ pact-test:
 	go test pkg/service/job/service_test.go
 
 mysql-test-build:
-	mysql -h localhost -P 3306 --protocol=tcp -u root -prootpw123 -e 'create database todos;'
-	mysql -h localhost -P 3306 --protocol=tcp -u root -prootpw123 -e 'drop database todos;'
+	mysql -h localhost -P 3306 --protocol=tcp -u root  -e 'create database todos;'
+	mysql -h localhost -P 3306 --protocol=tcp -u root  -e 'drop database todos;'
 	./bin/todo-app-back &
-	mysql -h localhost -P 3306 --protocol=tcp -u root -prootpw123 -e 'use todos;insert into jobs (body) values("Test");insert into jobs (body) values("Test");select * from jobs'
+	mysql -h localhost -P 3306 --protocol=tcp -u root -e 'use todos;insert into jobs (body) values("Test");insert into jobs (body) values("Test");select * from jobs'

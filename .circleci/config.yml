@@ -29,7 +29,8 @@ jobs:
       - image: pactfoundation/pact-cli:latest
         environment:
           MYSQL_USER: root
-          MYSQL_ROOT_PASSWORD: rootpw123
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_PASSWORD: rootpw
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
