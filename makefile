@@ -80,5 +80,6 @@ pact-test:
 mysql-test-build:
 	mysql -h localhost -P 3306 --protocol=tcp -u root  -e 'create database todos;'
 	mysql -h localhost -P 3306 --protocol=tcp -u root  -e 'drop database todos;'
-	./bin/todo-app-back &
+
+	./bin/todo-app-back 
 	mysql -h localhost -P 3306 --protocol=tcp -u root -e 'use todos;insert into jobs (body) values("Test");insert into jobs (body) values("Test");select * from jobs'

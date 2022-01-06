@@ -5,7 +5,7 @@ api:
   secret: "very_secret_password"
 
 database:
-  address: 127.0.0.1:3306
+  address: localhost:3306
   username: root
-  password: rootpw
+  password: 
   db_name: todos
